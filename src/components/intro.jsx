@@ -1,19 +1,28 @@
-import React, { useState } from 'react';
-import Counter from './Counter';
+import React from 'react';
+import { useImmer } from 'use-immer';
 
 export default function Intro() {
-    const [total, setTotal] = useState(0);
-    const handleClick = () => {
-        setTotal(total => total + 1)
-    };
- 
+    const [form, updatePerson] = useImmer({
+        name: '',
+        email: '',
+        id: 1,
+    });
+    const handleChange = e => {
+        const { name, value } = e.target;
+
+        e.preventDefault();
+        updatePerson({
+            [name]: value
+        })
+    }
     return (
         <>
-            <div>total count = {total}</div>
-            <div>
-                <Counter onClick={handleClick} />
-                <Counter onClick={handleClick} />
-            </div>
+        <form>
+            <label htmlFor="name">name</label>
+            <input type="text" name='name' value={form.name} onChange={handleChange}/>
+            <label htmlFor="email">email</label>
+            <input type="text" name='email' value={form.email} onChange={handleChange}/>
+        </form>
         </>
     );
 }
