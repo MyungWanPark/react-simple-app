@@ -6,6 +6,7 @@ export default function Intro() {
     const handleClick = () => {
         setTotal(total => total + 1)
     };
+ 
     return (
         <>
             <div>total count = {total}</div>
